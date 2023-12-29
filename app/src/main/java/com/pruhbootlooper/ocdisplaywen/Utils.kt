@@ -196,7 +196,7 @@ class Utils  {
             val mergedDtb = File("$filePath/dtb")
             val fos = FileOutputStream(mergedDtb)
             val dtbCount = getSP(context, "dtb_count")?.toInt()
-            for(i in 0 ..dtbCount!!){
+            for(i in 1 ..dtbCount!!){
                 val inputDtb = File("$filePath/temp/$i.dtb")
                 val fis = FileInputStream(inputDtb)
                 val b : ByteArray = ByteArray(inputDtb.length().toInt())
