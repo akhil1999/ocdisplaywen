@@ -240,7 +240,7 @@ class Utils  {
         }
 
         fun setupEnv(context: Context) {
-            val binaries = listOf<String>("dtc", "magiskboot")
+            val binaries = listOf<String>("dtc", "magiskboot", "dtbtool")
             for (binary in binaries){
                 Utils.exportFiles(context, binary, context.filesDir.absolutePath + "/" + binary)
                 val file = File(context.filesDir.absolutePath + "/" + binary)
