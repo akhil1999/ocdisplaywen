@@ -186,27 +186,6 @@ class Utils  {
             br.close()
             osw.close()
             process.destroy()
-
-            linkDtbs(context)
-        }
-
-        fun linkDtbs(context: Context) {
-            println("link dtbs called")
-            val filePath = context.filesDir.absolutePath
-            val mergedDtb = File("$filePath/dtb")
-            val fos = FileOutputStream(mergedDtb)
-            val dtbCount = getSP(context, "dtb_count")?.toInt()
-            for(i in 1 ..dtbCount!!){
-                val inputDtb = File("$filePath/temp/$i.dtb")
-                val fis = FileInputStream(inputDtb)
-                val b : ByteArray = ByteArray(inputDtb.length().toInt())
-                if(fis.read(b).toLong() != inputDtb.length()){
-                    println("error!")
-                }
-                fos.write(b)
-                fis.close()
-            }
-            fos.close()
         }
 
         fun checkBootImageBackup(context: Context) : Boolean {
