@@ -117,13 +117,6 @@ class Utils  {
                         println("D00DFEED $i")
                         dtbOffsetList.add(i)
                     }
-                    else if(
-                        //44 54 42 48 is Exynos DTBH Magic Number
-                        dtb_bytes[i] == (0x44).toByte() && dtb_bytes[i + 1] == (0x54).toByte() && dtb_bytes[i+2] == (0x42).toByte() && dtb_bytes[i+3] == (0x48).toByte()
-                    ){
-                        println("44544248 $i")
-                        dtbHeaderOffset = i
-                    }
                     i++
                 }
 
@@ -154,24 +147,7 @@ class Utils  {
                     dtb2dts(context, filePath, i)
                     i++
                 }
-                extractHeader(context, (dtbOffsetList[0] - dtbHeaderOffset))
-                //end extraction of dtb(s) from dtb img
             }
-        }
-
-        fun extractHeader(context: Context, headerSize : Int) {
-            val filePath = context.filesDir.absolutePath
-            val process = ProcessBuilder("su").redirectErrorStream(true).start()
-            val osw = OutputStreamWriter(process.outputStream)
-            val br = BufferedReader(InputStreamReader(process.inputStream))
-            osw.write("dd if=$filePath/stock/extra skip=0 bs=1 count=$headerSize of=$filePath/stock/0.dtb\n")
-            osw.write("exit\n")
-            osw.flush()
-            while(br.readLine() != null){
-            }
-            br.close()
-            osw.close()
-            process.destroy()
         }
 
         fun dtb2dts(context: Context, filePath : String, i : Int) {
