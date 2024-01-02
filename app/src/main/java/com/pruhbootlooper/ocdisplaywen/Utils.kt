@@ -11,6 +11,12 @@ class Utils  {
         //        fun bootImage2Dts(context: Context){
 //            unpackBootImage(context)
 //        }
+
+        //Lassen constants
+        val CONFIG_EXYNOS_DTBH_PAGE_SIZE : String = "2048"
+        val CONFIG_EXYNOS_DTBH_PLATFORM_CODE : String = "0x50a6"
+        val CONFIG_EXYNOS_DTBH_SUBTYPE_CODE : String = "0x0217584da"
+
         //set a shared prefs key
         fun setSP(context: Context, key : String, value : String) {
             val sp = context.getSharedPreferences("ocdisplaywen", Context.MODE_PRIVATE)
@@ -195,7 +201,7 @@ class Utils  {
             val br = BufferedReader(InputStreamReader(process.inputStream))
             osw.write("cd $filePath/temp\n")
             //Call Exynos DTB Tool :D
-            osw.write("../dtbtool --pagesize 2048 --platform 0x50a6 --subtype 0x217584da -o $filePath/temp/extra --dtb $filePath/temp/\n")
+            osw.write("../dtbtool --pagesize $CONFIG_EXYNOS_DTBH_PAGE_SIZE --platform $CONFIG_EXYNOS_DTBH_PLATFORM_CODE --subtype $CONFIG_EXYNOS_DTBH_SUBTYPE_CODE -o $filePath/temp/extra --dtb $filePath/temp/\n")
             osw.write("exit\n")
             osw.flush()
             while(br.readLine() != null){
