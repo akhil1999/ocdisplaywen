@@ -167,7 +167,6 @@ class Utils  {
         }
 
         fun dts2dtb(context: Context) {
-            println("dts2dtb hit")
             val filePath = context.filesDir.absolutePath
             val dtbCount = getSP(context, "dtb_count")?.toInt()
             val process = ProcessBuilder("su").redirectErrorStream(true).start()
@@ -179,6 +178,57 @@ class Utils  {
                 println(i)
                 osw.write("$filePath/dtc -I dts -O dtb $i.dts -o $i.dtb\n")
             }
+            osw.write("exit\n")
+            osw.flush()
+            while(br.readLine() != null){
+            }
+            br.close()
+            osw.close()
+            process.destroy()
+            createDtb(context)
+        }
+
+        fun createDtb(context : Context) {
+            val filePath = context.filesDir.absolutePath
+            val process = ProcessBuilder("su").redirectErrorStream(true).start()
+            val osw = OutputStreamWriter(process.outputStream)
+            val br = BufferedReader(InputStreamReader(process.inputStream))
+            osw.write("cd $filePath/temp\n")
+            //Call Exynos DTB Tool :D
+            osw.write("../dtbtool --pagesize 2048 --platform 0x50a6 --subtype 0x217584da -o $filePath/temp/extra --dtb $filePath/temp/\n")
+            osw.write("exit\n")
+            osw.flush()
+            while(br.readLine() != null){
+            }
+            br.close()
+            osw.close()
+            process.destroy()
+            repackBootImage(context)
+        }
+
+        fun repackBootImage(context: Context) {
+            val filePath = context.filesDir.absolutePath
+            val process = ProcessBuilder("su").redirectErrorStream(true).start()
+            val osw = OutputStreamWriter(process.outputStream)
+            val br = BufferedReader(InputStreamReader(process.inputStream))
+            osw.write("cd $filePath/temp\n")
+            osw.write("../magiskboot repack stock_boot.img boot_new.img\n")
+            osw.write("exit\n")
+            osw.flush()
+            while(br.readLine() != null){
+            }
+            br.close()
+            osw.close()
+            process.destroy()
+            flashRepackedBootImage(context)
+        }
+
+        fun flashRepackedBootImage(context: Context) {
+            val filePath = context.filesDir.absolutePath
+            val process = ProcessBuilder("su").redirectErrorStream(true).start()
+            val osw = OutputStreamWriter(process.outputStream)
+            val br = BufferedReader(InputStreamReader(process.inputStream))
+            osw.write("dd if=$filePath/temp/boot_new.img of=/dev/block/by-name/BOOT\n")
             osw.write("exit\n")
             osw.flush()
             while(br.readLine() != null){
