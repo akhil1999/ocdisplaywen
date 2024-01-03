@@ -81,8 +81,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         rebootButton.setOnClickListener {
-            showToast(this, "Rebooting...", Toast.LENGTH_SHORT)
-            Utils.reboot()
+            Utils.showDialog(this, "Reboot?", "Do you want to reboot?", true)
         }
 
         unpackDtsButton.setOnClickListener {
