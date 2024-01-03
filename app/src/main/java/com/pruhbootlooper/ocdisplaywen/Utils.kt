@@ -1,6 +1,8 @@
 package com.pruhbootlooper.ocdisplaywen
 
 import android.content.Context
+import android.content.DialogInterface
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import java.io.*
 import kotlin.concurrent.thread
@@ -289,6 +291,12 @@ class Utils  {
             alertDialog.setTitle(title)
             alertDialog.setMessage(message)
             alertDialog.setCancelable(isCancelable)
+            alertDialog.setPositiveButton("Confirm") { alertDialog : DialogInterface, i ->
+                Utils.reboot()
+            }
+            alertDialog.setNegativeButton("Deny") { alertDialog : DialogInterface, i ->
+                Toast.makeText(context, "Denied", Toast.LENGTH_SHORT).show()
+            }
             alertDialog.show()
         }
 
