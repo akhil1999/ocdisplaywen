@@ -128,11 +128,11 @@ class MainActivity : AppCompatActivity() {
                 }
             })
             Utils.dtb_split(this, response = {
-                    if(it){
+                    if(it.status){
                         runOnUiThread {
                             closeBtn.isEnabled = true
                             progressBar.progress = 100
-                            textView.text = "Complete!"
+                            textView.text = "Complete, detected ${it.dtbCount} dtb(s)"
                         }
                     }
             })
