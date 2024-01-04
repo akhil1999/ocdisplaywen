@@ -56,7 +56,7 @@ class Utils  {
 //            }
 //        }
 
-        fun modifyDts(context: Context, P : String, M : String, S : String) {
+        fun modifyDts(context: Context, P : String, M : String, S : String, response: (Boolean) -> Unit) {
             thread{
                 val filePath = context.filesDir.absolutePath
                 val process = ProcessBuilder("su").redirectErrorStream(true).start()
@@ -86,6 +86,7 @@ class Utils  {
                 osw.close()
                 process.destroy()
                 dts2dtb(context)
+                response(true)
             }
         }
 

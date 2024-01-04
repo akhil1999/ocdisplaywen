@@ -76,8 +76,28 @@ class MainActivity : AppCompatActivity() {
                     if(!it){
                         showToast(this, "Error backing up boot image!", Toast.LENGTH_SHORT )
                     }else{
-                        unpacc.renameAsStock(this)
-                        showToast(this, "Successfully backed up boot image!", Toast.LENGTH_SHORT)
+                        runOnUiThread {
+                            val builder : AlertDialog = AlertDialog.Builder(this).create()
+                            val view : View = layoutInflater.inflate(R.layout.progress_dialog_layout, null)
+                            val textView : TextView = view.findViewById(R.id.textView7)
+                            val closeBtn : Button = view.findViewById(R.id.button)
+                            val progressBar : ProgressBar = view.findViewById(R.id.progressBar)
+                            builder.setTitle("Backup Boot Image")
+                            builder.setCancelable(false)
+                            closeBtn.isEnabled = false
+                            closeBtn.setOnClickListener {
+                                builder.dismiss()
+                            }
+                            builder.setView(view)
+                            builder.show()
+                            closeBtn.isEnabled = true
+                            unpacc.renameAsStock(this, response = {
+                                closeBtn.isEnabled = true
+                                progressBar.progress = 100
+                                textView.text = "Complete!"
+                            })
+                            showToast(this, "Successfully backed up boot image!", Toast.LENGTH_SHORT)
+                        }
                     }
                 }
             }
@@ -93,12 +113,12 @@ class MainActivity : AppCompatActivity() {
             val textView : TextView = view.findViewById(R.id.textView7)
             val closeBtn : Button = view.findViewById(R.id.button)
             val progressBar : ProgressBar = view.findViewById(R.id.progressBar)
+            builder.setTitle("Unpack DTS")
             builder.setCancelable(false)
             closeBtn.isEnabled = false
             closeBtn.setOnClickListener {
                 builder.dismiss()
             }
-
             builder.setView(view)
             builder.show()
 
@@ -119,9 +139,29 @@ class MainActivity : AppCompatActivity() {
         }
 
         modifyDtsButton.setOnClickListener {
-            Utils.modifyDts(this, P.toString(), M.toString(), S.toString())
-            val filePath = this.filesDir.absolutePath
-            val actualFilePath = "$filePath/temp"
+            val builder : AlertDialog = AlertDialog.Builder(this).create()
+            val view : View = layoutInflater.inflate(R.layout.progress_dialog_layout, null)
+            val textView : TextView = view.findViewById(R.id.textView7)
+            val closeBtn : Button = view.findViewById(R.id.button)
+            val progressBar : ProgressBar = view.findViewById(R.id.progressBar)
+            builder.setTitle("Modify DTS")
+            builder.setCancelable(false)
+            closeBtn.isEnabled = false
+            closeBtn.setOnClickListener {
+                builder.dismiss()
+            }
+            builder.setView(view)
+            builder.show()
+
+            Utils.modifyDts(this, P.toString(), M.toString(), S.toString(), response = {
+                if(it){
+                    runOnUiThread {
+                        closeBtn.isEnabled = true
+                        progressBar.progress = 100
+                        textView.text = "Complete!"
+                    }
+                }
+            })
         }
 
         calculateButton.setOnClickListener {

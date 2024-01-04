@@ -34,7 +34,7 @@ class Unpacc(val filePath : String) {
         }
     }
 
-    fun renameAsStock(context: Context){
+    fun renameAsStock(context: Context,response: (Boolean) -> Unit){
         thread{
             println(filePath)
             val process = ProcessBuilder("su").redirectErrorStream(true).start()
@@ -48,6 +48,7 @@ class Unpacc(val filePath : String) {
             osw.close()
             br.close()
             process.destroy()
+            response(true)
         }
     }
 
