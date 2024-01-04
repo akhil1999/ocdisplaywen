@@ -51,7 +51,7 @@ class Unpacc(val filePath : String) {
         }
     }
 
-    fun unpackBootImage(context: Context) {
+    fun unpackBootImage(context: Context, response : (Boolean) -> Unit) {
         val process = ProcessBuilder("su").redirectErrorStream(true).start()
         val osw = OutputStreamWriter(process.outputStream)
         val br = BufferedReader(InputStreamReader(process.inputStream))
@@ -67,5 +67,6 @@ class Unpacc(val filePath : String) {
         br.close()
         osw.close()
         process.destroy()
+        response(true)
     }
 }

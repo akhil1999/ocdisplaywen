@@ -3,10 +3,13 @@ package com.pruhbootlooper.ocdisplaywen
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.SeekBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 
 class MainActivity : AppCompatActivity() {
     private lateinit var backupStockButton : Button
@@ -85,9 +88,34 @@ class MainActivity : AppCompatActivity() {
         }
 
         unpackDtsButton.setOnClickListener {
-//            showToast(this, "Unpacking DTS...", Toast.LENGTH_SHORT)
-            unpacc.unpackBootImage(this)
-            Utils.dtb_split(this)
+            val builder : AlertDialog = AlertDialog.Builder(this).create()
+            val view : View = layoutInflater.inflate(R.layout.progress_dialog_layout, null)
+            val textView : TextView = view.findViewById(R.id.textView7)
+            val closeBtn : Button = view.findViewById(R.id.button)
+            val progressBar : ProgressBar = view.findViewById(R.id.progressBar)
+            builder.setCancelable(false)
+            closeBtn.isEnabled = false
+            closeBtn.setOnClickListener {
+                builder.dismiss()
+            }
+
+            builder.setView(view)
+            builder.show()
+
+            unpacc.unpackBootImage(this, response = {
+                if(it){
+                    progressBar.progress = 30
+                }
+            })
+            Utils.dtb_split(this, response = {
+                    if(it){
+                        runOnUiThread {
+                            closeBtn.isEnabled = true
+                            progressBar.progress = 100
+                            textView.text = "Complete!"
+                        }
+                    }
+            })
         }
 
         modifyDtsButton.setOnClickListener {

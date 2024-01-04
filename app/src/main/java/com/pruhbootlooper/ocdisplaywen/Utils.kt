@@ -103,7 +103,7 @@ class Utils  {
             return result.toString()
         }
 
-        fun dtb_split(context: Context) {
+        fun dtb_split(context: Context, response : (Boolean) -> Unit) {
             thread{
                 val filePath = context.filesDir.absolutePath
                 val dtb = File("$filePath/stock/extra")
@@ -155,6 +155,7 @@ class Utils  {
                     dtb2dts(context, filePath, i)
                     i++
                 }
+                response(true)
             }
         }
 
