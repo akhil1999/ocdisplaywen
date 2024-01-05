@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ProgressBar
 import android.widget.SeekBar
 import android.widget.TextView
@@ -25,10 +26,16 @@ class MainActivity : AppCompatActivity() {
     private lateinit var Stext : TextView
     private lateinit var pllFrequencyText : TextView
     private lateinit var refreshRateText : TextView
+    private lateinit var Pminus : ImageButton
+    private lateinit var Mminus : ImageButton
+    private lateinit var Sminus : ImageButton
+    private lateinit var Pplus : ImageButton
+    private lateinit var Mplus : ImageButton
+    private lateinit var Splus : ImageButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_main_new)
         //buttons declaration
         backupStockButton = findViewById(R.id.backup_stock)
         rebootButton = findViewById(R.id.reboot_btn)
@@ -46,6 +53,15 @@ class MainActivity : AppCompatActivity() {
         pllFrequencyText = findViewById(R.id.pllfrequency)
         refreshRateText = findViewById(R.id.refreshrate)
 
+        //plusminus
+        Pminus = findViewById(R.id.imageButton4)
+        Mminus = findViewById(R.id.imageButton5)
+        Sminus = findViewById(R.id.imageButton6)
+
+        Pplus = findViewById(R.id.imageButton)
+        Mplus = findViewById(R.id.imageButton2)
+        Splus = findViewById(R.id.imageButton3)
+
         //Instantiate Unpacc
         val unpacc = Unpacc(this.filesDir.absolutePath)
 
@@ -53,6 +69,42 @@ class MainActivity : AppCompatActivity() {
         var P = 3
         var M = 127
         var S = 0
+
+        Pminus.setOnClickListener{
+            P -= 1
+            Ptext.text = P.toString()
+            Pseek.progress = P
+        }
+
+        Mminus.setOnClickListener{
+            M -= 1
+            Mtext.text = M.toString()
+            Mseek.progress = M
+        }
+
+        Sminus.setOnClickListener{
+            S -= 1
+            Stext.text = S.toString()
+            Sseek.progress = S
+        }
+
+        Pplus.setOnClickListener {
+            P += 1
+            Ptext.text = P.toString()
+            Pseek.progress = P
+        }
+
+        Mplus.setOnClickListener {
+            M += 1
+            Mtext.text = M.toString()
+            Mseek.progress = M
+        }
+
+        Splus.setOnClickListener {
+            S += 1
+            Stext.text = S.toString()
+            Sseek.progress = S
+        }
 
         //Check if root exist and only then proceed else throw blocking dialog box.
         if(!Utils.checkRoot()) {
