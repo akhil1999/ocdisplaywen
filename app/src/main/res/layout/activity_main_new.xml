@@ -209,48 +209,48 @@
 
     <TextView
         android:id="@+id/refreshrate"
-        android:layout_width="79dp"
-        android:layout_height="22dp"
+        android:layout_width="83dp"
+        android:layout_height="24dp"
         android:text="0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.912"
+        app:layout_constraintHorizontal_bias="0.951"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.2" />
 
     <TextView
         android:id="@+id/textView6"
-        android:layout_width="105dp"
-        android:layout_height="28dp"
+        android:layout_width="139dp"
+        android:layout_height="24dp"
         android:text="PLL Frequency"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.522"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.162" />
+        app:layout_constraintVertical_bias="0.161" />
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="111dp"
-        android:layout_height="38dp"
+        android:layout_width="170dp"
+        android:layout_height="24dp"
         android:text="Estimated refresh rate"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.533"
+        app:layout_constraintHorizontal_bias="0.589"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.204" />
+        app:layout_constraintVertical_bias="0.199" />
 
     <TextView
         android:id="@+id/pllfrequency"
-        android:layout_width="79dp"
-        android:layout_height="22dp"
+        android:layout_width="83dp"
+        android:layout_height="24dp"
         android:text="0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.912"
+        app:layout_constraintHorizontal_bias="0.951"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.16" />
@@ -262,10 +262,10 @@
         android:text="Calculate"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.017"
+        app:layout_constraintHorizontal_bias="0.018"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.176" />
+        app:layout_constraintVertical_bias="0.167" />
 
     <Button
         android:id="@+id/modifydts_btn"
