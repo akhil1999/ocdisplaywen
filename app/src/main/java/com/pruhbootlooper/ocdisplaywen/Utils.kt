@@ -7,6 +7,7 @@ import androidx.appcompat.app.AlertDialog
 import java.io.*
 import kotlin.concurrent.thread
 import kotlin.math.pow
+import kotlin.math.roundToInt
 
 class Utils  {
     companion object{
@@ -100,7 +101,8 @@ class Utils  {
 
         fun calculateRefreshRate(pllFrequency : Float) : String {
             val defaultFps : Float = 60F
-            val result : Float = (60F / 1100F) * pllFrequency
+            var result : Float = (60F / 1100F) * pllFrequency
+            result = result.roundToInt().toFloat()
             return result.toString()
         }
 
