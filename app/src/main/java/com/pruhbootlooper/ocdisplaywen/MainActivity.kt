@@ -115,8 +115,8 @@ class MainActivity : AppCompatActivity() {
             Mtext.text = M.toString()
             Stext.text = S.toString()
             var freq : Int = (Utils.calculateFrequency(P.toDouble(),M.toDouble(),S.toDouble())).toInt()
-            pllFrequencyText.text = freq.toString()
-            refreshRateText.text = Utils.calculateRefreshRate(freq.toFloat())
+            pllFrequencyText.text = freq.toString() + " MHz"
+            refreshRateText.text = Utils.calculateRefreshRate(freq.toFloat()) + " FPS"
         }
 
         //backup stock boot image
@@ -219,8 +219,8 @@ class MainActivity : AppCompatActivity() {
         calculateButton.setOnClickListener {
 //            showToast(this, "P: $P, M = $M, S =$S", Toast.LENGTH_SHORT)
             var freq : Int = (Utils.calculateFrequency(P.toDouble(),M.toDouble(),S.toDouble())).toInt()
-            pllFrequencyText.text = freq.toString()
-            refreshRateText.text = Utils.calculateRefreshRate(freq.toFloat())
+            pllFrequencyText.text = freq.toString() + " MHz"
+            refreshRateText.text = Utils.calculateRefreshRate(freq.toFloat()) + " FPS"
         }
 
         Pseek.setOnSeekBarChangeListener(object :  SeekBar.OnSeekBarChangeListener {
