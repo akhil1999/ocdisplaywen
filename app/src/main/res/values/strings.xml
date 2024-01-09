@@ -3,8 +3,8 @@
     <string name="bub">Backup stock boot image</string>
 
     <string-array name="Select_Profile">
-        <item>Stock Profile</item>
-        <item>OC Profile</item>
-        <item>Current Profile</item>
+        <item>stock_profile</item>
+        <item>oc_profile</item>
+        <item>current_profile</item>
     </string-array>
 </resources>
