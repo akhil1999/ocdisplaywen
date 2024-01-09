@@ -14,6 +14,8 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import com.pruhbootlooper.ocdisplaywen.database.DBHelper
+import com.pruhbootlooper.test.Profile
 
 class MainActivity : AppCompatActivity() {
     private lateinit var backupStockButton : Button
@@ -39,6 +41,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_new)
+        //Init the DB once
+        DBHelper.initDB(applicationContext)
+
+
         //buttons declaration
         backupStockButton = findViewById(R.id.backup_stock)
         rebootButton = findViewById(R.id.reboot_btn)
@@ -113,11 +119,38 @@ class MainActivity : AppCompatActivity() {
         spProfiles.onItemSelectedListener = object  : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 showToast(this@MainActivity, "Loaded ${adapterView?.getItemAtPosition(position).toString()}", Toast.LENGTH_SHORT)
+
+                when(adapterView?.getItemAtPosition(position).toString()){
+                    "stock_profile" -> setPMSFromDB("stock_profile")
+                    "oc_profile" -> setPMSFromDB("oc_profile")
+                    "current_profile" ->setPMSFromDB("current_profile")
+                }
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
             }
+
+            fun setPMSFromDB(profile_name : String){
+                DBHelper.getProfileFromDB(profile_name, response = {
+                    runOnUiThread {
+                        //set P,M,S vars
+                        P = it.P!!
+                        M = it.M!!
+                        S = it.S!!
+                        //Set P,M,S UI text
+                        Ptext.text = P.toString()
+                        Mtext.text = M.toString()
+                        Stext.text = S.toString()
+                        //Set P,M,S progress bars
+                        Pseek.progress = P
+                        Mseek.progress = M
+                        Sseek.progress = S
+                    }
+                })
+            }
         }
+
+
 
         //Check if root exist and only then proceed else throw blocking dialog box.
         if(!Utils.checkRoot()) {
