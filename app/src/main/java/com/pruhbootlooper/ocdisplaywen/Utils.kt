@@ -298,11 +298,14 @@ class Utils  {
             alertDialog.setTitle(title)
             alertDialog.setMessage(message)
             alertDialog.setCancelable(isCancelable)
-            alertDialog.setPositiveButton("Confirm") { alertDialog : DialogInterface, i ->
-                Utils.reboot()
-            }
-            alertDialog.setNegativeButton("Deny") { alertDialog : DialogInterface, i ->
-                Toast.makeText(context, "Denied", Toast.LENGTH_SHORT).show()
+
+            if(isCancelable) {
+                alertDialog.setPositiveButton("Confirm") { alertDialog : DialogInterface, i ->
+                    Utils.reboot()
+                }
+                alertDialog.setNegativeButton("Deny") { alertDialog : DialogInterface, i ->
+                    Toast.makeText(context, "Denied", Toast.LENGTH_SHORT).show()
+                }
             }
             alertDialog.show()
         }
