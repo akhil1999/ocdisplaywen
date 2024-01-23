@@ -63,26 +63,16 @@ class Utils  {
                 val process = ProcessBuilder("su").redirectErrorStream(true).start()
                 val osw = OutputStreamWriter(process.outputStream)
                 val br = BufferedReader(InputStreamReader(process.inputStream))
-                val stock = fetchTimings(context, 1, "temp")
                 val modified = "timing,pms = <$P $M $S>;"
+                osw.write("cd $filePath/temp\n")
+                val stock : String = fetchTimings(context, 1, "temp")
+                osw.write("sed -i 's/$stock/$modified/g' *.dts\n")
                 println("stocc:$stock")
                 println("mod:$modified")
-
-                val tempDir = File("$filePath/temp/")
-                if(!tempDir.exists()){
-                    osw.write("mkdir $filePath/temp\n")
-                    osw.write("cd $filePath/temp\n")
-                    osw.write("cp -r $filePath/stock/* $filePath/temp/\n")
-                    osw.write("sed -i 's/$stock/$modified/g' *.dts\n")
-                }else{
-                    osw.write("cd $filePath/temp\n")
-                    osw.write("sed -i 's/$stock/$modified/g' *.dts\n")
-                }
                 osw.write("exit\n")
                 osw.flush()
                 while(br.readLine() != null){
                 }
-
                 br.close()
                 osw.close()
                 process.destroy()
@@ -161,8 +151,25 @@ class Utils  {
                 val responseObject = ResponseObject()
                 responseObject.dtbCount = dtbcount
                 responseObject.status = true
+                createTempDir(context)
                 response(responseObject)
             }
+        }
+
+        fun createTempDir(context : Context){
+            val filePath = context.filesDir.absolutePath
+            val process = ProcessBuilder("su").redirectErrorStream(true).start()
+            val osw = OutputStreamWriter(process.outputStream)
+            val br = BufferedReader(InputStreamReader(process.inputStream))
+            osw.write("mkdir $filePath/temp\n")
+            osw.write("cp -r $filePath/stock/* $filePath/temp\n")
+            osw.write("exit\n")
+            osw.flush()
+            while(br.readLine() != null){
+            }
+            br.close()
+            osw.close()
+            process.destroy()
         }
 
         fun dtb2dts(context: Context, filePath : String, i : Int) {
