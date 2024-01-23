@@ -257,6 +257,7 @@ class MainActivity : AppCompatActivity() {
                         closeBtn.isEnabled = true
                         progressBar.progress = 100
                         textView.text = "Complete!"
+                        DBHelper.setProfileInDB("current_profile", P, M, S)
                     }
                 }
             })

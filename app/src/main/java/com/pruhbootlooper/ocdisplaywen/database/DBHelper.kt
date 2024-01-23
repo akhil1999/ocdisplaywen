@@ -2,6 +2,7 @@ package com.pruhbootlooper.ocdisplaywen.database
 
 import android.content.Context
 import androidx.room.Room
+import com.pruhbootlooper.ocdisplaywen.Utils
 import com.pruhbootlooper.test.AppDatabase
 import com.pruhbootlooper.test.Profile
 import kotlin.concurrent.thread
@@ -26,12 +27,16 @@ class DBHelper {
                     AppDatabase::class.java, "Profile"
                 ).build()
 
-                //60Hz profile
-                DBHelper.setProfileInDB("stock_profile", 3, 127, 0)
-                //82Hz profile
-                DBHelper.setProfileInDB("oc_profile", 3, 173, 0)
-                //current
-                DBHelper.setProfileInDB("current_profile", 3, 127, 0)
+                //set these profiles once on first app init only
+                if(Utils.getSP(context, "init_done?").equals("default")){
+                    //60Hz profile
+                    setProfileInDB("stock_profile", 3, 127, 0)
+                    //82Hz profile
+                    setProfileInDB("oc_profile", 3, 173, 0)
+                    //current
+                    setProfileInDB("current_profile", 3, 127, 0)
+                    Utils.setSP(context, "init_done?", "true")
+                }
             }
         }
 
