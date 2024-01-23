@@ -145,6 +145,10 @@ class MainActivity : AppCompatActivity() {
                         Pseek.progress = P
                         Mseek.progress = M
                         Sseek.progress = S
+                        //auto calculate PLL Frequency & Estimated refresh rate on profile toggle
+                        var freq : Int = (Utils.calculateFrequency(P.toDouble(),M.toDouble(),S.toDouble())).toInt()
+                        pllFrequencyText.text = freq.toString() + " MHz"
+                        refreshRateText.text = Utils.calculateRefreshRate(freq.toFloat()) + " FPS"
                     }
                 })
             }
