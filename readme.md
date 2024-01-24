@@ -1,4 +1,4 @@
-##OC DISPLAY WEN
+# OC DISPLAY WEN
 
 Why is it called so? Well, it's an inside joke referring to what people ask ETA alot as in "VoLTE support wen" usually on forums. This is us turning the joke on users hehe.
 
@@ -7,7 +7,7 @@ Currently for ea8076 display panel found on Exynos7904 / Exynos9611 Samsung devi
 
 In my experience, ea8076 panel in my Samsung Galaxy M30 (SM-M305F) can clock upto 82Hz stable but there is definitely some color shift.
 
-#How does this work?
+# How does this work?
 
 On Samsung devices, atleast observed on Exynos7885/7904/9611, there exists a device tree property called "timing,pms" in panel node of display DTSI which is responsible for MIPI clock generation for driving the panel.
 
@@ -57,13 +57,13 @@ A couple of modifications needs to be introduced for device launched with Pie si
 
 Exynos7885/7904 devices launched with pre-pie i.e. oreo and earlier use device tree blob inside boot ramdisk, currently this app works with such device i.e. Samsung Galaxy A8, A8+, M30, etc.
 
-#Dependencies / Prebuilt Binaries used:
+# Dependencies / Prebuilt Binaries used:
 1.magiskboot
 2.dtbhtool for exynos
 3.dtc
 
 A separate repo detailing how static binaries above are built using NDK will be added shortly with steps.
 
-#Credits:
+# Credits:
 1.VDavid003 for haccing with me (yes, that's not a typo, it's an inside joke as well)
 2.libxzr who is known for OSS KonaBess from which this app heavily is inspired by, thank you for your work! Would not have been possible without me reading and understanding how KonaBess works!
