@@ -21,7 +21,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var backupStockButton : Button
     private lateinit var rebootButton : Button
     private lateinit var unpackDtsButton : Button
-    private lateinit var calculateButton : Button
     private lateinit var modifyDtsButton : Button
     private lateinit var Pseek : SeekBar
     private lateinit var Mseek : SeekBar
@@ -49,7 +48,6 @@ class MainActivity : AppCompatActivity() {
         backupStockButton = findViewById(R.id.backup_stock)
         rebootButton = findViewById(R.id.reboot_btn)
         unpackDtsButton = findViewById(R.id.unpackdts_btn)
-        calculateButton = findViewById(R.id.calculate_btn)
         modifyDtsButton = findViewById(R.id.modifydts_btn)
         //seekBars
         Pseek = findViewById(R.id.seekBar6)
@@ -83,36 +81,42 @@ class MainActivity : AppCompatActivity() {
             P -= 1
             Ptext.text = P.toString()
             Pseek.progress = P
+            calculate(P, M, S)
         }
 
         Mminus.setOnClickListener{
             M -= 1
             Mtext.text = M.toString()
             Mseek.progress = M
+            calculate(P, M, S)
         }
 
         Sminus.setOnClickListener{
             S -= 1
             Stext.text = S.toString()
             Sseek.progress = S
+            calculate(P, M, S)
         }
 
         Pplus.setOnClickListener {
             P += 1
             Ptext.text = P.toString()
             Pseek.progress = P
+            calculate(P, M, S)
         }
 
         Mplus.setOnClickListener {
             M += 1
             Mtext.text = M.toString()
             Mseek.progress = M
+            calculate(P, M, S)
         }
 
         Splus.setOnClickListener {
             S += 1
             Stext.text = S.toString()
             Sseek.progress = S
+            calculate(P, M, S)
         }
 
         val spProfiles : Spinner = findViewById(R.id.spProfiles)
@@ -267,12 +271,7 @@ class MainActivity : AppCompatActivity() {
             })
         }
 
-        calculateButton.setOnClickListener {
-//            showToast(this, "P: $P, M = $M, S =$S", Toast.LENGTH_SHORT)
-            var freq : Int = (Utils.calculateFrequency(P.toDouble(),M.toDouble(),S.toDouble())).toInt()
-            pllFrequencyText.text = freq.toString() + " MHz"
-            refreshRateText.text = Utils.calculateRefreshRate(freq.toFloat()) + " FPS"
-        }
+
 
         Pseek.setOnSeekBarChangeListener(object :  SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
@@ -285,6 +284,7 @@ class MainActivity : AppCompatActivity() {
             override fun onStopTrackingTouch(p0: SeekBar?) {
                 if (p0 != null) {
                     P = p0.progress.toInt()
+                    calculate(P, M, S)
                 }
             }
 
@@ -301,6 +301,7 @@ class MainActivity : AppCompatActivity() {
             override fun onStopTrackingTouch(p0: SeekBar?) {
                 if (p0 != null) {
                     M = p0.progress.toInt()
+                    calculate(P, M, S)
                 }
             }
 
@@ -317,6 +318,7 @@ class MainActivity : AppCompatActivity() {
             override fun onStopTrackingTouch(p0: SeekBar?) {
                 if (p0 != null) {
                     S = p0.progress.toInt()
+                    calculate(P, M, S)
                 }
             }
 
@@ -327,5 +329,12 @@ class MainActivity : AppCompatActivity() {
         runOnUiThread {
             Toast.makeText(this, message, duration).show()
         }
+    }
+
+    private fun calculate(P : Int, M : Int, S : Int) {
+//            showToast(this, "P: $P, M = $M, S =$S", Toast.LENGTH_SHORT)
+        var freq : Int = (Utils.calculateFrequency(P.toDouble(),M.toDouble(),S.toDouble())).toInt()
+        pllFrequencyText.text = freq.toString() + " MHz"
+        refreshRateText.text = Utils.calculateRefreshRate(freq.toFloat()) + " FPS"
     }
 }
