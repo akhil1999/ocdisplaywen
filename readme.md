@@ -84,4 +84,4 @@ A separate repo detailing how static binaries above are built using NDK will be 
 
 ## Credits:
  * [VDavid003](https://github.com/VDavid003) for haccing with me (yes, that's not a typo, it's an inside joke as well)
- * [libxzr](https://github.com/libxzr) who is best known for OSS KonaBess from which this app heavily is inspired by, thank you for your work! Would not have been possible without me reading and understanding how KonaBess works! I analysed the App which is written in Java and ported code.
+ * [libxzr](https://github.com/libxzr) who is best known for OSS KonaBess from which this app heavily is inspired by, thank you for your work! Would not have been possible without me reading and understanding how KonaBess works! I analysed the App which is written in Java and ported code to Kotlin as an exercise.
