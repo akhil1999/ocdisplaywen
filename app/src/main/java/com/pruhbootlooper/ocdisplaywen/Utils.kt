@@ -63,6 +63,11 @@ class Utils  {
                 val process = ProcessBuilder("su").redirectErrorStream(true).start()
                 val osw = OutputStreamWriter(process.outputStream)
                 val br = BufferedReader(InputStreamReader(process.inputStream))
+                val tempDir = File("$filePath/temp")
+                if(!tempDir.exists()){
+                    response(false)
+                    return@thread
+                }
                 val modified = "timing,pms = <$P $M $S>;"
                 osw.write("cd $filePath/temp\n")
                 val stock : String = fetchTimings(context, 1, "temp")
@@ -101,6 +106,13 @@ class Utils  {
                 val filePath = context.filesDir.absolutePath
                 val dtb = File("$filePath/stock/extra")
                 val dtb_bytes = ByteArray(dtb.length().toInt())
+                if(!dtb.exists()){
+                    val responseObject = ResponseObject()
+                    responseObject.dtbCount = 0
+                    responseObject.status = false
+                    response(responseObject)
+                    return@thread
+                }
                 val fis = FileInputStream(dtb)
                 if (fis.read(dtb_bytes) != dtb.length().toInt())
                     fis.close()

@@ -240,6 +240,14 @@ class MainActivity : AppCompatActivity() {
                             progressBar.progress = 100
                             textView.text = "Complete, detected ${it.dtbCount} dtb(s)"
                         }
+                    }else{
+                        runOnUiThread {
+                            builder.setTitle("Fail!")
+                            builder.show()
+                            progressBar.progress = 0
+                            closeBtn.isEnabled = true
+                            textView.text = "Backup stock boot image first!"
+                        }
                     }
             })
         }
@@ -266,6 +274,14 @@ class MainActivity : AppCompatActivity() {
                         progressBar.progress = 100
                         textView.text = "Complete!"
                         DBHelper.setProfileInDB("current_profile", P, M, S)
+                    }
+                }else{
+                    runOnUiThread {
+                        builder.setTitle("Fail!")
+                        builder.show()
+                        progressBar.progress = 0
+                        closeBtn.isEnabled = true
+                        textView.text = "Backup stock boot image first!"
                     }
                 }
             })
