@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">oc display wen</string>
     <string name="bub">Backup stock boot image</string>
-
+    <string name="app_desc">Usage: First step is to backup boot image currently on device, next step is to unpack the DTS.\nThird step is to choose your custom P, M, S values.\nFinal step is to modify DTS which will set the chosen P, M, S values and flash generated boot image to boot partition.\nClick reboot post this to test the changes</string>
+    <string name="credits">Credits: akhil1999, VDavid003 and libxzr</string>
     <string-array name="Select_Profile">
         <item>stock_profile</item>
         <item>oc_profile</item>
