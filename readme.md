@@ -70,9 +70,9 @@ A couple of modifications needs to be introduced for device launched with Pie si
 Exynos7885/7904 devices launched with pre-pie i.e. oreo and earlier use device tree blob inside boot ramdisk, currently this app works with such device i.e. Samsung Galaxy A8, A8+, M30, etc.
 
 ## Dependencies / Prebuilt Binaries used:
-1.magiskboot
-2.dtbhtool for exynos
-3.dtc
+1. magiskboot
+2. dtbhtool for exynos
+3. dtc
 
 A separate repo detailing how static binaries above are built using NDK will be added shortly with steps.
 
