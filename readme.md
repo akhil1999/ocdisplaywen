@@ -1,5 +1,7 @@
 # OC DISPLAY WEN
 
+![homescreen](https://github.com/akhil1999/ocdisplaywen/blob/main/docs/homescreen.jpg)
+
 Why is it called so? Well, it's an inside joke referring to what people ask ETA alot as in "VoLTE support wen" usually on forums. This is us turning the joke on users hehe.
 
 ### Why choose Kotlin? 
