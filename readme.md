@@ -15,7 +15,7 @@ In my experience, ea8076 panel in my Samsung Galaxy M30 (SM-M305F) can clock upt
 
 ## How does this work?
 
-On Samsung devices, atleast observed on Exynos7885/7904/9611, there exists a device tree property called "timing,pms" in panel node of display DTSI (example [here](https://github.com/akhil1999/android_kernel_samsung_m30lte/blob/master/arch/arm64/boot/dts/exynos/display-lcd_m30_common.dtsi#L59))which is responsible for MIPI clock generation for driving the panel.
+On Samsung devices, atleast observed on Exynos7885/7904/9611, there exists a device tree property called "timing,pms" in panel node of display DTSI (example [here](https://github.com/akhil1999/android_kernel_samsung_m30lte/blob/master/arch/arm64/boot/dts/exynos/display-lcd_m30_common.dtsi#L59)) which is responsible for MIPI clock generation for driving the panel.
 
 A PLL is responsible for generating the MIPI Clock and the frequency is calculated by the formula:
 
@@ -28,7 +28,7 @@ Fin is 26 MHz clock which is usually sourced from 52MHz TXCO (temperature compen
 the "timing,pms" is usually defined as an array of 3 numbers which maybe in hexadecimal / decimal as 
 
 ```sh
-timing,pms=<3 127 0>
+timing,pms = <3 127 0>;
 ```
 
 Calculation for the same is 
