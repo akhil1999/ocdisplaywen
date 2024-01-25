@@ -26,7 +26,7 @@ This will set the chosen P, M, S values in DTS, repack the DTS & then generate a
 
 Click reboot post this to test the changes, cycle the panel on & off (lock the phone and unlock it) once to make sure the change is in effect.
 
-##How does it work
+## How does it work
 
 Find out [here](https://github.com/akhil1999/ocdisplaywen/blob/main/how_it_works.md)
 
