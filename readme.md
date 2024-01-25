@@ -28,7 +28,7 @@ Click reboot post this to test the changes, cycle the panel on & off (lock the p
 
 ##How does it work
 
-Find out [here]()
+Find out [here](https://github.com/akhil1999/ocdisplaywen/blob/main/how_it_works.md)
 
 ## Dependencies / Prebuilt Binaries used:
 - [magiskboot](https://github.com/topjohnwu/Magisk)
