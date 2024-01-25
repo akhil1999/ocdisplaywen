@@ -49,7 +49,7 @@ Formula for actual refresh rate "ARR" is
 ARR = ( 60 / MIPI Speed ) * DSI Clock
 ```
 
-MIPI Speed is the actual FFC speed i.e. Flat Flexible Cable connector from motherboard to display panel determined by a byte sequence located in [ea8076_m30_param.h](https://github.com/akhil1999/android_kernel_samsung_m30lte/blob/display_oc/drivers/video/fbdev/exynos/dpu_7885/panels/ea8076_m30_param.h) as
+MIPI Speed is the actual FFC speed i.e. Flat Flexible Cable connector from motherboard to display panel determined by a byte sequence located in [ea8076_m30_param.h](https://github.com/akhil1999/android_kernel_samsung_m30lte/blob/display_oc/drivers/video/fbdev/exynos/dpu_7885/panels/ea8076_m30_param.h#L154) as
 
 ```sh
 static unsigned char SEQ_FFC_SET[] = {
