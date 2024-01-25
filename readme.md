@@ -15,7 +15,7 @@ Currently for ea8076 display panel found on Exynos7885 / 7904 / 9611 Samsung dev
 
 In my experience, ea8076 panel in my Samsung Galaxy M30 (SM-M305F) can clock upto 82Hz stable but there is definitely some color shift.
 
-##Usage
+## Usage
 
 First step is to backup boot image currently on device using "BACKUP STOCK BOOTIMAGE" button. This will backup the bootimage.
 
