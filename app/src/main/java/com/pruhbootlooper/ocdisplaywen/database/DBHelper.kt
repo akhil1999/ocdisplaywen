@@ -69,12 +69,10 @@ class DBHelper {
             returns:
             Profile (contains profile_name, Pdiv, Mdiv, Sdiv)
         */
-        fun getProfileFromDB(profile : String, response : (Profile) -> Unit) {
-            thread{
+        fun getProfileFromDB(profile : String) : Profile {
                 val profileDao = db.profileDao()
                 val profile = profileDao.readProfile(profile)
-                response(profile)
-            }
+                return profile
         }
 
         /*

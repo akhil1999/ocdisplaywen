@@ -3,7 +3,8 @@ package com.pruhbootlooper.ocdisplaywen
 import android.content.Context
 import android.content.DialogInterface
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
+import kotlinx.coroutines.delay
+//import androidx.appcompat.app.AlertDialog
 import java.io.*
 import kotlin.concurrent.thread
 import kotlin.math.pow
@@ -14,6 +15,10 @@ class Utils  {
         //        fun bootImage2Dts(context: Context){
 //            unpackBootImage(context)
 //        }
+        suspend fun processSomething() : Boolean{
+            delay(2000)
+            return true
+        }
 
         //Lassen constants
         val CONFIG_EXYNOS_DTBH_PAGE_SIZE : String = "2048"
@@ -57,18 +62,18 @@ class Utils  {
 //            }
 //        }
 
-        fun modifyDts(context: Context, P : String, M : String, S : String, response: (Boolean) -> Unit) {
-            thread{
+        fun modifyDts(context: Context, P : String, M : String, S : String) : Boolean {
                 val filePath = context.filesDir.absolutePath
                 val process = ProcessBuilder("su").redirectErrorStream(true).start()
                 val osw = OutputStreamWriter(process.outputStream)
                 val br = BufferedReader(InputStreamReader(process.inputStream))
                 val tempDir = File("$filePath/temp")
                 if(!tempDir.exists()){
-                    response(false)
-                    return@thread
+                    println("temp dir not exist")
+                    return false
                 }
                 val modified = "timing,pms = <$P $M $S>;"
+                println("BURGIR LOG: timing,pms = <$P $M $S>;")
                 osw.write("cd $filePath/temp\n")
                 val stock : String = fetchTimings(context, 1, "temp")
                 osw.write("sed -i 's/$stock/$modified/g' *.dts\n")
@@ -82,8 +87,7 @@ class Utils  {
                 osw.close()
                 process.destroy()
                 dts2dtb(context)
-                response(true)
-            }
+                return true
         }
 
         fun calculateFrequency(P: Double, M: Double, S: Double): Double {
@@ -98,20 +102,16 @@ class Utils  {
             val defaultFps : Float = 60F
             var result : Float = (60F / 1100F) * pllFrequency
             result = result.roundToInt().toFloat()
+            println("calculateRefreshRate:$pllFrequency,$result")
             return result.toString()
         }
 
-        fun dtb_split(context: Context, response : (ResponseObject) -> Unit) {
-            thread{
+        fun dtb_split(context: Context) : Boolean {
                 val filePath = context.filesDir.absolutePath
                 val dtb = File("$filePath/stock/extra")
                 val dtb_bytes = ByteArray(dtb.length().toInt())
                 if(!dtb.exists()){
-                    val responseObject = ResponseObject()
-                    responseObject.dtbCount = 0
-                    responseObject.status = false
-                    response(responseObject)
-                    return@thread
+                    return false
                 }
                 val fis = FileInputStream(dtb)
                 if (fis.read(dtb_bytes) != dtb.length().toInt())
@@ -160,12 +160,8 @@ class Utils  {
                     dtb2dts(context, filePath, i)
                     i++
                 }
-                val responseObject = ResponseObject()
-                responseObject.dtbCount = dtbcount
-                responseObject.status = true
-                createTempDir(context)
-                response(responseObject)
-            }
+            createTempDir(context)
+            return true
         }
 
         fun createTempDir(context : Context){
@@ -312,22 +308,22 @@ class Utils  {
             }
         }
 
-        fun showDialog(context : Context, title : String, message : String, isCancelable : Boolean) {
-            val alertDialog = AlertDialog.Builder(context)
-            alertDialog.setTitle(title)
-            alertDialog.setMessage(message)
-            alertDialog.setCancelable(isCancelable)
-
-            if(isCancelable) {
-                alertDialog.setPositiveButton("Confirm") { alertDialog : DialogInterface, i ->
-                    Utils.reboot()
-                }
-                alertDialog.setNegativeButton("Deny") { alertDialog : DialogInterface, i ->
-                    Toast.makeText(context, "Denied", Toast.LENGTH_SHORT).show()
-                }
-            }
-            alertDialog.show()
-        }
+//        fun showDialog(context : Context, title : String, message : String, isCancelable : Boolean) {
+//            val alertDialog = AlertDialog.Builder(context)
+//            alertDialog.setTitle(title)
+//            alertDialog.setMessage(message)
+//            alertDialog.setCancelable(isCancelable)
+//
+//            if(isCancelable) {
+//                alertDialog.setPositiveButton("Confirm") { alertDialog : DialogInterface, i ->
+//                    Utils.reboot()
+//                }
+//                alertDialog.setNegativeButton("Deny") { alertDialog : DialogInterface, i ->
+//                    Toast.makeText(context, "Denied", Toast.LENGTH_SHORT).show()
+//                }
+//            }
+//            alertDialog.show()
+//        }
 
         fun checkRoot() : Boolean {
             val processBuilder = ProcessBuilder().command("su", "-c", "ls")

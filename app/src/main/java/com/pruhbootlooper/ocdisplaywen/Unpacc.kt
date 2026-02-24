@@ -4,9 +4,8 @@ import android.content.Context
 import java.io.*
 import kotlin.concurrent.thread
 
-class Unpacc(val filePath : String) {
-    fun getBootImage(context: Context, response : (Boolean) -> Unit){
-        thread {
+class Unpacc(private val filePath : String) {
+    fun getBootImage(context: Context) : Boolean{
             println(filePath)
             val process = ProcessBuilder("su").redirectErrorStream(true).start()
             val osw = OutputStreamWriter(process.outputStream)
@@ -26,33 +25,29 @@ class Unpacc(val filePath : String) {
             val target = File("$filePath/stock/boot.img")
             if (!target.exists() || !target.canRead()) {
                 target.delete()
-                response(false)
+                return false
             }else{
-
-                response(true)
+                return true
             }
         }
-    }
 
-    fun renameAsStock(context: Context,response: (Boolean) -> Unit){
-        thread{
-            println(filePath)
-            val process = ProcessBuilder("su").redirectErrorStream(true).start()
-            val osw = OutputStreamWriter(process.outputStream)
-            val br = BufferedReader(InputStreamReader(process.inputStream))
-            osw.write("mv $filePath/stock/boot.img $filePath/stock/stock_boot.img\n")
-            osw.write("exit\n")
-            osw.flush()
-            while(br.readLine() != null){
-            }
-            osw.close()
-            br.close()
-            process.destroy()
-            response(true)
+    fun renameAsStock(context: Context) : Boolean{
+        println(filePath)
+        val process = ProcessBuilder("su").redirectErrorStream(true).start()
+        val osw = OutputStreamWriter(process.outputStream)
+        val br = BufferedReader(InputStreamReader(process.inputStream))
+        osw.write("mv $filePath/stock/boot.img $filePath/stock/stock_boot.img\n")
+        osw.write("exit\n")
+        osw.flush()
+        while(br.readLine() != null){
         }
+        osw.close()
+        br.close()
+        process.destroy()
+        return true
     }
 
-    fun unpackBootImage(context: Context, response : (Boolean) -> Unit) {
+    fun unpackBootImage(context: Context) : Boolean {
         val process = ProcessBuilder("su").redirectErrorStream(true).start()
         val osw = OutputStreamWriter(process.outputStream)
         val br = BufferedReader(InputStreamReader(process.inputStream))
@@ -68,6 +63,6 @@ class Unpacc(val filePath : String) {
         br.close()
         osw.close()
         process.destroy()
-        response(true)
+        return true
     }
 }

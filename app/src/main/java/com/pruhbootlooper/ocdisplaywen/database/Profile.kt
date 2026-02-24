@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 data class Profile(
     @PrimaryKey
     val profileName : String,
-    @ColumnInfo(name = "P") val P : Int?,
-    @ColumnInfo(name = "M") val M : Int?,
-    @ColumnInfo(name = "S") val S : Int?
+    @ColumnInfo(name = "P") val P : Int,
+    @ColumnInfo(name = "M") val M : Int,
+    @ColumnInfo(name = "S") val S : Int
 )
